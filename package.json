@@ -1,0 +1,15 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "Simple calculator app for VS Code agents demo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "demo",
+    "calculator",
+    "agents"
+  ],
+  "author": ""
+}
