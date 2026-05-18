@@ -11,6 +11,7 @@ window.calculator = (function () {
   let previousInput = null;
   let operator = null;
   let waitingForSecondOperand = false;
+  let angleMode = "deg"; // "deg" or "rad" — used by scientific functions
 
   /**
    * Appends a digit to the current input
@@ -131,6 +132,9 @@ window.calculator = (function () {
         }
         result = first / second;
         break;
+      case "pow":
+        result = Math.pow(first, second);
+        break;
       default:
         return second;
     }
@@ -195,6 +199,51 @@ window.calculator = (function () {
     return currentInput || "0";
   }
 
+  /**
+   * Applies a named scientific function (e.g. "sin", "sqrt") to the current input.
+   * Delegates all math to window.sciMath.compute — no math logic here.
+   * @param {string} fn - Function name matching a key in sciMath
+   */
+  function inputScientific(fn) {
+    if (currentInput === "Error") {
+      inputClear();
+      return;
+    }
+    const value = parseFloat(currentInput);
+    const result = window.sciMath.compute(fn, value, angleMode);
+    currentInput = String(result);
+    // Result is the new current value; ready for further operations
+    waitingForSecondOperand = false;
+  }
+
+  /**
+   * Inserts a mathematical constant as the current input.
+   * @param {string} name - "pi" or "e"
+   */
+  function inputConstant(name) {
+    const constants = { pi: Math.PI, e: Math.E };
+    if (!(name in constants)) return;
+    currentInput = String(parseFloat(constants[name].toPrecision(10)));
+    waitingForSecondOperand = false;
+  }
+
+  /**
+   * Toggles between degrees and radians mode.
+   * @returns {string} The new angle mode ("deg" or "rad")
+   */
+  function setAngleMode() {
+    angleMode = angleMode === "deg" ? "rad" : "deg";
+    return angleMode;
+  }
+
+  /**
+   * Returns the current angle mode.
+   * @returns {string} "deg" or "rad"
+   */
+  function getAngleMode() {
+    return angleMode;
+  }
+
   // Public API
   return {
     inputNumber,
@@ -205,5 +254,9 @@ window.calculator = (function () {
     inputNegate,
     inputPercent,
     getDisplay,
+    inputScientific,
+    inputConstant,
+    setAngleMode,
+    getAngleMode,
   };
 })();

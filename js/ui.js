@@ -3,19 +3,23 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   const display = document.getElementById("display");
-  const buttonsContainer = document.querySelector(".buttons");
+  const calculatorEl = document.querySelector(".calculator");
 
   function updateDisplay() {
     display.textContent = window.calculator.getDisplay();
   }
 
-  buttonsContainer.addEventListener("click", (event) => {
-    const target = event.target;
-    if (!target.classList.contains("btn")) return;
+  // Single delegated listener on .calculator catches both standard and scientific buttons
+  calculatorEl.addEventListener("click", (event) => {
+    // Use closest() so clicks on child elements (e.g. SVG) still resolve to the button
+    const target = event.target.closest("button");
+    if (!target) return;
 
     const number = target.dataset.number;
     const operator = target.dataset.operator;
     const action = target.dataset.action;
+    const scientific = target.dataset.scientific;
+    const constant = target.dataset.constant;
 
     if (number !== undefined) {
       if (number === ".") {
@@ -25,6 +29,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else if (operator !== undefined) {
       window.calculator.inputOperator(operator);
+    } else if (scientific !== undefined) {
+      // Unary scientific function (sin, sqrt, log, etc.)
+      window.calculator.inputScientific(scientific);
+    } else if (constant !== undefined) {
+      // Mathematical constant (pi, e)
+      window.calculator.inputConstant(constant);
     } else if (action === "clear") {
       window.calculator.inputClear();
     } else if (action === "equals") {
@@ -33,6 +43,29 @@ document.addEventListener("DOMContentLoaded", () => {
       window.calculator.inputNegate();
     } else if (action === "percent") {
       window.calculator.inputPercent();
+    } else if (action === "toggleSci") {
+      // Show/hide the scientific panel
+      const panel = document.getElementById("sci-panel");
+      const sciToggle = document.getElementById("sci-toggle");
+      const isOpen = sciToggle.getAttribute("aria-expanded") === "true";
+      panel.hidden = isOpen;
+      sciToggle.setAttribute("aria-expanded", String(!isOpen));
+      sciToggle.classList.toggle("btn-mode-active", !isOpen);
+      return; // No display update needed
+    } else if (action === "toggleAngle") {
+      // Toggle DEG / RAD mode
+      const angleToggle = document.getElementById("angle-toggle");
+      const newMode = window.calculator.setAngleMode();
+      const isDeg = newMode === "deg";
+      angleToggle.textContent = isDeg ? "DEG" : "RAD";
+      angleToggle.setAttribute(
+        "aria-label",
+        isDeg
+          ? "Angle mode: Degrees — click to switch to Radians"
+          : "Angle mode: Radians — click to switch to Degrees",
+      );
+      angleToggle.classList.toggle("btn-angle-active", isDeg);
+      return; // No display update needed
     }
 
     updateDisplay();

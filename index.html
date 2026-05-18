@@ -21,6 +21,171 @@
         <div class="display">
           <span id="display">0</span>
         </div>
+
+        <!-- Mode bar: SCI toggle sits above all button rows -->
+        <div class="calculator-mode-bar">
+          <button
+            id="sci-toggle"
+            class="btn-mode"
+            data-action="toggleSci"
+            aria-expanded="false"
+            aria-controls="sci-panel"
+          >
+            SCI
+          </button>
+        </div>
+
+        <!-- Scientific functions panel — hidden until SCI is toggled on -->
+        <section
+          id="sci-panel"
+          class="buttons-scientific"
+          aria-label="Scientific functions"
+          hidden
+        >
+          <!-- Row 1: Primary trig + angle mode toggle -->
+          <button class="btn btn-sci" data-scientific="sin" aria-label="Sine">
+            sin
+          </button>
+          <button class="btn btn-sci" data-scientific="cos" aria-label="Cosine">
+            cos
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="tan"
+            aria-label="Tangent"
+          >
+            tan
+          </button>
+          <button
+            id="angle-toggle"
+            class="btn btn-sci btn-angle-active"
+            data-action="toggleAngle"
+            aria-label="Angle mode: Degrees — click to switch to Radians"
+          >
+            DEG
+          </button>
+
+          <!-- Row 2: Inverse trig + square -->
+          <button
+            class="btn btn-sci"
+            data-scientific="asin"
+            aria-label="Inverse sine"
+          >
+            sin⁻¹
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="acos"
+            aria-label="Inverse cosine"
+          >
+            cos⁻¹
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="atan"
+            aria-label="Inverse tangent"
+          >
+            tan⁻¹
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="square"
+            aria-label="Square"
+          >
+            x²
+          </button>
+
+          <!-- Row 3: Roots + power + reciprocal -->
+          <button
+            class="btn btn-sci"
+            data-scientific="sqrt"
+            aria-label="Square root"
+          >
+            √x
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="cbrt"
+            aria-label="Cube root"
+          >
+            ∛x
+          </button>
+          <button
+            class="btn btn-sci btn-operator"
+            data-operator="pow"
+            aria-label="Raise to power (enter base, press xʸ, enter exponent, press equals)"
+          >
+            xʸ
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="reciprocal"
+            aria-label="Reciprocal (1 divided by x)"
+          >
+            1/x
+          </button>
+
+          <!-- Row 4: Logarithms + constants -->
+          <button
+            class="btn btn-sci"
+            data-scientific="log"
+            aria-label="Logarithm base 10"
+          >
+            log
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="ln"
+            aria-label="Natural logarithm"
+          >
+            ln
+          </button>
+          <button
+            class="btn btn-sci"
+            data-constant="pi"
+            aria-label="Pi constant (3.14159…)"
+          >
+            π
+          </button>
+          <button
+            class="btn btn-sci"
+            data-constant="e"
+            aria-label="Euler's number (2.71828…)"
+          >
+            e
+          </button>
+
+          <!-- Row 5: Misc -->
+          <button
+            class="btn btn-sci"
+            data-scientific="factorial"
+            aria-label="Factorial"
+          >
+            n!
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="exp"
+            aria-label="e to the power x"
+          >
+            eˣ
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="pow10"
+            aria-label="10 to the power x"
+          >
+            10ˣ
+          </button>
+          <button
+            class="btn btn-sci"
+            data-scientific="abs"
+            aria-label="Absolute value"
+          >
+            |x|
+          </button>
+        </section>
+
         <div class="buttons">
           <button class="btn" data-action="clear">C</button>
           <button class="btn" data-action="negate">±</button>
@@ -49,6 +214,7 @@
       </div>
     </main>
 
+    <script src="js/scientific.js"></script>
     <script src="js/calculator.js"></script>
     <script src="js/ui.js"></script>
   </body>

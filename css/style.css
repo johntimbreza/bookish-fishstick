@@ -262,3 +262,82 @@ body.pink-mode .btn-operator,
 body.pink-mode .btn-equals {
   color: #ffffff;
 }
+
+/* =============================================================
+   Scientific Mode
+   Activated by adding class .sci-mode to .calculator
+   ============================================================= */
+
+/* Mode bar — sits between display and buttons */
+.calculator-mode-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--gap);
+}
+
+/* SCI toggle button */
+.btn-mode {
+  background-color: var(--color-btn);
+  color: var(--color-text);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-mode:hover {
+  background-color: var(--color-btn-hover);
+}
+
+.btn-mode:focus-visible {
+  outline: 2px solid var(--color-btn-operator);
+  outline-offset: 2px;
+}
+
+/* SCI button turns orange when scientific panel is open */
+.btn-mode-active {
+  background-color: var(--color-btn-operator);
+  color: #fff;
+}
+
+.btn-mode-active:hover {
+  background-color: var(--color-btn-operator-hover);
+}
+
+/* Scientific button panel — hidden until sci-mode is active */
+.buttons-scientific {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+/* Scientific function buttons — slightly smaller than regular buttons */
+.btn-sci {
+  font-size: 0.9rem;
+  padding: 0.75rem 0.25rem;
+  min-height: 44px;
+}
+
+/* Angle mode toggle — highlighted when degrees is active (default) */
+.btn-angle-active {
+  background-color: var(--color-btn-operator);
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn-angle-active:hover {
+  background-color: var(--color-btn-operator-hover);
+}
+
+/* High contrast support for new buttons */
+@media (forced-colors: active) {
+  .btn-mode:focus-visible,
+  .btn-sci:focus-visible {
+    outline: 2px solid ButtonBorder;
+  }
+}
