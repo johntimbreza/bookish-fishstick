@@ -41,25 +41,39 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Theme toggle ---
   const themeToggle = document.getElementById("theme-toggle");
 
-  function applyTheme(isLight) {
-    document.body.classList.toggle("light-mode", isLight);
-    themeToggle.textContent = isLight ? "☀️ Light" : "🌙 Dark";
-    themeToggle.setAttribute(
-      "aria-label",
-      isLight ? "Switch to dark mode" : "Switch to light mode",
+  const themes = ["dark", "light", "pink"];
+  const themeConfig = {
+    dark: { text: "🌙 Dark", label: "Switch to light mode", classes: [] },
+    light: {
+      text: "☀️ Light",
+      label: "Switch to pink mode",
+      classes: ["light-mode"],
+    },
+    pink: {
+      text: "🩷 Pink",
+      label: "Switch to dark mode",
+      classes: ["pink-mode"],
+    },
+  };
+
+  function applyTheme(theme) {
+    document.body.classList.remove("light-mode", "pink-mode");
+    themeConfig[theme].classes.forEach((cls) =>
+      document.body.classList.add(cls),
     );
-    themeToggle.setAttribute("aria-pressed", isLight ? "true" : "false");
+    themeToggle.textContent = themeConfig[theme].text;
+    themeToggle.setAttribute("aria-label", themeConfig[theme].label);
+    localStorage.setItem("calculator-theme", theme);
   }
 
   themeToggle.addEventListener("click", () => {
-    const isLight = document.body.classList.toggle("light-mode");
-    applyTheme(isLight);
-    localStorage.setItem("calculator-theme", isLight ? "light" : "dark");
+    const current = localStorage.getItem("calculator-theme") || "dark";
+    const next = themes[(themes.indexOf(current) + 1) % themes.length];
+    applyTheme(next);
   });
 
   // Restore saved theme on load
-  const savedTheme = localStorage.getItem("calculator-theme");
-  applyTheme(savedTheme === "light");
+  applyTheme(localStorage.getItem("calculator-theme") || "dark");
   // --- End theme toggle ---
 
   // Initialize display

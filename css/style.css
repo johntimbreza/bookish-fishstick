@@ -243,3 +243,22 @@ body.light-mode {
   outline: 2px solid var(--color-btn-operator);
   outline-offset: 2px;
 }
+
+/* Pink mode theme */
+body.pink-mode {
+  --color-bg: #fff0f6;
+  --color-calc-bg: #fce4ec;
+  --color-btn: #f8bbd0;
+  --color-btn-hover: #f48fb1;
+  --color-btn-operator: #c2185b;
+  --color-btn-operator-hover: #ad1457;
+  --color-btn-equals: #c2185b;
+  --color-display-bg: #fce4ec;
+  --color-text: #1a001a;
+  --color-text-dim: #4a0040;
+}
+
+body.pink-mode .btn-operator,
+body.pink-mode .btn-equals {
+  color: #ffffff;
+}
