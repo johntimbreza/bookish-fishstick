@@ -205,3 +205,41 @@ body {
     transform: none;
   }
 }
+
+/* Light mode theme - overrides dark theme colors when active */
+body.light-mode {
+  --color-bg: #f0f0f0;
+  --color-calc-bg: #ffffff;
+  --color-btn: #e0e0e0;
+  --color-btn-hover: #cccccc;
+  --color-btn-operator: #e8921a;
+  --color-btn-operator-hover: #d4830f;
+  --color-btn-equals: #e8921a;
+  --color-display-bg: #f8f8f8;
+  --color-text: #1a1a1a;
+  --color-text-dim: #333333;
+}
+
+/* Theme toggle button - allows switching between light and dark modes */
+#theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--color-btn);
+  color: var(--color-text);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#theme-toggle:hover {
+  background: var(--color-btn-hover);
+}
+
+#theme-toggle:focus-visible {
+  outline: 2px solid var(--color-btn-operator);
+  outline-offset: 2px;
+}

@@ -38,6 +38,30 @@ document.addEventListener("DOMContentLoaded", () => {
     updateDisplay();
   });
 
+  // --- Theme toggle ---
+  const themeToggle = document.getElementById("theme-toggle");
+
+  function applyTheme(isLight) {
+    document.body.classList.toggle("light-mode", isLight);
+    themeToggle.textContent = isLight ? "☀️ Light" : "🌙 Dark";
+    themeToggle.setAttribute(
+      "aria-label",
+      isLight ? "Switch to dark mode" : "Switch to light mode",
+    );
+    themeToggle.setAttribute("aria-pressed", isLight ? "true" : "false");
+  }
+
+  themeToggle.addEventListener("click", () => {
+    const isLight = document.body.classList.toggle("light-mode");
+    applyTheme(isLight);
+    localStorage.setItem("calculator-theme", isLight ? "light" : "dark");
+  });
+
+  // Restore saved theme on load
+  const savedTheme = localStorage.getItem("calculator-theme");
+  applyTheme(savedTheme === "light");
+  // --- End theme toggle ---
+
   // Initialize display
   updateDisplay();
 });
